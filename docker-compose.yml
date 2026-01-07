@@ -1,0 +1,36 @@
+services:
+  stock-db:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: stock_ai_postgres_final
+    environment:
+      # 在這裡設定密碼與資料庫名稱，解決您剛才遇到的錯誤
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=stock_ai_hub
+    ports:
+      - "5433:5432"
+    restart: always
+    # 如果您希望資料永久保存，可以取消下面兩行的註解
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+
+  stock-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: stock_ai_frontend
+    ports:
+      - "8501:8501"
+    environment:
+      - DB_HOST=stock-db
+      - DB_NAME=stock_ai_hub
+      - DB_USER=postgres
+      - DB_PASSWORD=password
+      - DB_PORT=5432
+    depends_on:
+      - stock-db
+    restart: always
+
+# volumes:
+#   postgres_data:
