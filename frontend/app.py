@@ -94,8 +94,8 @@ if st.sidebar.button("執行預測"):
             st.error(f"連線或查詢發生錯誤: {e}")
 
 # -----------------
-# 主畫面渲染邏輯 (基於 Session State)
-# -----------------
+# 主畫面渲染邏輯 
+
 if st.session_state.analysis_result is not None:
     df = st.session_state.analysis_result
     symbol = st.session_state.current_symbol
@@ -211,7 +211,7 @@ if st.session_state.analysis_result is not None:
                             st.warning("模擬完成，但過去這段時間沒有觸發任何符合策略的交易訊號 (可能是盤整或條件過於嚴格)。")
                         
                         # ==========================================
-                        #  Gap 3: 補上績效匯總報表 (Summary Report)
+                        #  Gap 3: 補上績效匯總報表
                         # ==========================================
                         st.markdown("---")
                         st.subheader("綜合績效報告")
